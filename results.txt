@@ -1,0 +1,47 @@
+
+
+data.c Results
+
+    Threads     1       2       3       4       5
+Scale
+
+    1         0.13    0.07     0.07    0.06    0.05
+
+    2         0.31    0.19     0.18    0.12    0.15
+
+    3         0.60    0.35     0.26    0.23    0.20
+
+    4         1.07    0.58     0.39    0.36    0.31
+
+    5         1.55    0.79     0.65    0.48    0.49
+
+
+
+task.c Results
+
+Scale
+
+    1       14.05
+
+    2       61.41
+
+    3       130.80
+
+    4       234.30
+
+    5       357.87
+
+Since tasks parallelism is not able to be done with a dynamic number of threads for this
+program I have chosen to omit the thread count. In my case, the program will always spawn
+3 threads during the for loop in order to calculate the RGB values simultaneously.
+
+Thoughts:
+
+Judging from the time results it is clear that data parallelism is much more well suited to the given task.
+This is because we are spawning a smaller amount of threads over the whole program and each thread is doing
+more work per spawn, so it's overhead cost is outweighed by it's usefulness. Task parallelism is the 
+opposite as in this case each thread needs more overhead work from the OS and CPU to create itself than the 
+thread will produce in it's lifespan. Looking at the time results from the data parallelism it is clear that 
+the higher the scale gets, the more threads you can add before their returns diminish or become a hinderance. 
+Something else of note, even at the smallest scale (1) multithreading still shows it's benefits by cutting the 
+single thread time in half, so it would appear that even small images can benefit from multithreading in this setting.
